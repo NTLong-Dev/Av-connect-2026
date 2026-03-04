@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <title>SWIT Việt Nam</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont;
+        }
+
+        .card {
+            border-radius: 22px;
+        }
+
+        .form-control {
+            border-radius: 12px;
+        }
+
+        .btn {
+            border-radius: 14px;
+        }
+
+        .logo {
+
+            color: #ff0000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 1000;
+            font-size: 50px;
+            margin: 0 auto 12px auto;
+        }
+
+        .logo .reg {
+            position: absolute;
+            right: 120px;
+            bottom: 400px;
+            font-size: 25px;
+            color: #e60012;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-11 col-sm-8 col-md-6 col-lg-4">
+
+                <div class="card shadow-lg">
+                    <div class="card-body p-4 p-lg-5">
+
+                        <div class="logo">
+                            SWIT<span class="reg">®</span>
+                        </div>
+
+                        <h4 class="text-center fw-bold mb-2">
+                            Nhận ưu đãi & voucher
+                        </h4>
+
+                        <p class="text-center text-muted mb-4">
+                            Xin mời quý khách nhập thông tin
+                        </p>
+
+                        <form id="switForm">
+
+                            <div class="mb-3">
+                                <label class="form-label">Họ và tên</label>
+                                <input type="text" id="name" class="form-control form-control-lg"
+                                    placeholder="Nguyễn Văn A" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">Số điện thoại</label>
+                                <input type="tel" id="phone" class="form-control form-control-lg"
+                                    placeholder="09xxxxxxxx" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-dark w-100 btn-lg" id="submitBtn">
+                                Gửi thông tin
+                            </button>
+
+                        </form>
+
+                        <div id="loading" class="text-center mt-3 text-muted d-none">
+                            Đang xử lý...
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbzTdw09nlZusVefOuKBdl1YCd6i4Tjfzcs9MLD0HcOZhWI0qKOoEIhVb0ZBCaT1cFI6iQ/exec";
+
+        const form = document.getElementById("switForm");
+        const loading = document.getElementById("loading");
+        const submitBtn = document.getElementById("submitBtn");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+
+            if (!name || !phone) {
+                alert("Vui lòng nhập đầy đủ thông tin.");
+                return;
+            }
+
+            submitBtn.disabled = true;
+            loading.classList.remove("d-none");
+
+            fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8"
+                },
+                body: JSON.stringify({
+                    name: name,
+                    phone: phone
+                })
+            })
+                .then(r => r.json())
+                .then(res => {
+
+                    window.location.href = "https://www.facebook.com/switvietnam";
+
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Không gửi được dữ liệu. Vui lòng thử lại.");
+                    submitBtn.disabled = false;
+                    loading.classList.add("d-none");
+                });
+
+        });
+    </script>
+
+</body>
+
+</html>
