@@ -171,13 +171,16 @@
 
         let currentVoucherCode = ""
 
-        function randomVoucherCode(len = 8) {
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-            let s = ""
-            for (let i = 0; i < len; i++) {
-                s += chars[Math.floor(Math.random() * chars.length)]
+        function randomVoucherCode() {
+            const prefix = "SWIT10"
+            const chars = "0123456789"
+            let randomPart = ""
+
+            for (let i = 0; i < 4; i++) {
+                randomPart += chars[Math.floor(Math.random() * chars.length)]
             }
-            return s
+
+            return prefix + randomPart
         }
 
         function launchConfettiFromModal() {
