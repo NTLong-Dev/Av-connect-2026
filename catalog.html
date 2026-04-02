@@ -96,8 +96,7 @@
         <img src="namlongav-logo.png">
         <div class="text">Đang tải...</div>
     </div>
-    <iframe id="frame" src="https://online.anyflip.com/qrzlr/okht/index.html" loading="lazy">
-    </iframe>
+    <iframe id="frame" src="https://online.anyflip.com/qrzlr/okht/index.html" loading="lazy"></iframe>
 
     <script>
         const frame = document.getElementById("frame");
@@ -124,6 +123,11 @@
             setTimeout(hideLoader, 2000);
         });
 
+        history.pushState(null, "", location.href);
+
+        window.addEventListener("popstate", function () {
+            history.pushState(null, "", location.href);
+        });
     </script>
 
 </body>

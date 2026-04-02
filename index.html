@@ -140,7 +140,7 @@
                 body: JSON.stringify({ name, company, phone })
             })
                 .then(() => {
-                    window.location.href = "https://ntlong-dev.github.io/Av-connect-2026/catalog.html"
+                    window.location.replace("https://ntlong-dev.github.io/Av-connect-2026/catalog.html")
                 })
                 .catch(() => {
                     submitBtn.disabled = false
